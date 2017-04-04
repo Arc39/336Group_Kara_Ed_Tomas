@@ -1,0 +1,15 @@
+brand itemname price
+
+insert into eyemakeup values("Anastasia","Modern Renaissance Palette", 42.00)
+insert into eyemakeup values("Too Faced","Sweet Peach", 49.00)
+insert into eyemakeup values("Urban Decay","Naked3", 54.00)
+insert into eyemakeup values("Urban Decay","Full Spectrum", 32.00)
+insert into eyemakeup values("Nars","NARSissist Loaded Eyeshadow", 59.00)
+insert into eyemakeup values("Tarte","Rainforest of the Sea", 36.00)
+insert into eyemakeup values("Tarte","Tarteist Pro Amazonian Clay", 53.00)
+insert into eyemakeup values("Urban Decay","Moondust Palette", 49.00)
+insert into eyemakeup values("Buxom","White Russian on the Rocks", 40.00)
+insert into eyemakeup values("Too Faced","White Chocolate Chip", 26.00)
+insert into eyemakeup values("Burberry","Complete Eye Palette", 62.00)
+insert into eyemakeup values("Kat Von D","Alchemist Holographic Palette", 32.00)
+insert into eyemakeup values("Dior","5-Colour Eyeshadow", 62.00)
