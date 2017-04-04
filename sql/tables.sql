@@ -1,5 +1,5 @@
 create table eyemakeup (
-      id INT NOT NULL AUTO INCREMENT,
+      id INT,
       brand varchar(55),
       itemName varchar(55),
       price numeric(5,2),
@@ -8,7 +8,7 @@ create table eyemakeup (
 );
 
 create table facemakeup (
-      id INT NOT NULL AUTO INCREMENT,
+      id INT,
       brand varchar(55),
       itemName varchar(55),
       price numeric(5,2),
@@ -17,7 +17,7 @@ create table facemakeup (
 );
 
 create table skincare (
-      id INT NOT NULL AUTO INCREMENT,
+      id INT,
       brand varchar(55),
       itemName varchar(55),
       price numeric(5,2),
