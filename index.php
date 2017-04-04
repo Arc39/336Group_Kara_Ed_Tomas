@@ -1,3 +1,10 @@
+<?php 
+    session_start();
+    //I think the best way to store items into our shopping cart using session
+    //Is to maybe use an array to store the info
+    //$itemArray=array(name, price, quantity);
+    //$_SESSION['item#']=$itemArray;
+?>
 <!DOCTYPE html>
 <html>
     <head>
