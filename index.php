@@ -1,45 +1,109 @@
-<?php 
-    session_start();
-    //I think the best way to store items into our shopping cart using session
-    //Is to maybe use an array to store the info
-    //$itemArray=array(name, price, quantity);
-    //$_SESSION['item#']=$itemArray;
-?>
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Makeup Catalog</title>
-        <style>
-            @import url("assets/style.css");
-        </style>
-    </head>
-    <body>
-        <div id = "wrapper">
-            <h3>Makeup Catalog</h3>
-            <form>
-                search for: 
-                <input type="text" name="brandName"/>
-                category: 
-                <select name="brandType">
-                    <option value="">Select One</option>
-                          //<?php
-                          //       $ = getDeviceTypes();
-                          //       foreach ($deviceTypes as $deviceType) {
-                          //           echo "<option>" . $deviceType['deviceType'] ." </option>";
-                          //       }
-                          //     ?>
-                    </select>
-                <input type="checkbox" name="status" id="status"/>
-                <label for="status">Check Availability</label>
-                <br>
-                Order By Price
-                <br>
-                <input type="radio" name="order" value="acs" id="cpcAcs"><label for="cpcAcs">low to high</label>
-                <input type="radio" name="order" value="dec" id="cpcDec"><label for="cpcDec">high to low</label>
-                    
-                <br>
-                <input type="submit" value="Search" />
-            </form>
-        </div>
-    </body>
-</html>
+<head>
+	<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+	
+<form>
+	search for: 
+    <input type="text" name="itemName"/>
+    <input type="submit" value="Search" />
+</form>
+
+<?php 
+require 'connect.php';
+$sql = 'SELECT * FROM eyemakeup ';
+$result = mysqli_query($con, $sql);
+ ?>
+
+ <table id="t01">
+ <tr>
+ 	<th>Id</th>
+ 	<th>Name</th>
+ 	<th>brand</th>
+ 	<th>Price</th>
+ 	<th>Quantity (in stock)</th>
+ 	<th>Buy</th>
+ </tr>
+ 	<?php while($product = mysqli_fetch_object($result)) { ?> 
+	<tr>
+		<td> <?php echo $product->id; ?> </td>
+		<td> <?php echo $product->name; ?> </td>
+		<td> <?php echo $product->brand; ?></td>
+		<td> <?php echo $product->price; ?> </td>
+		<td> <?php echo $product->quantity; ?> </td>
+		<td> <a href="cart.php?id= <?php echo $product->id; ?> &action=add">Order Now</a> </td>
+	</tr>
+	<?php } ?>
+
+
+
+
+
+
+<?php 
+$sql = 'SELECT * FROM facemakeup ';
+$result = mysqli_query($con, $sql);
+ ?>
+
+ <table id="t01">
+ <tr>
+ 	<th>Id</th>
+ 	<th>Name</th>
+ 	<th>brand</th>
+ 	<th>Price</th>
+ 	<th>Quantity (in stock)</th>
+ 	<th>Buy</th>
+ </tr>
+ 	<?php while($product = mysqli_fetch_object($result)) { ?> 
+	<tr>
+		<td> <?php echo $product->id; ?> </td>
+		<td> <?php echo $product->name; ?> </td>
+		<td> <?php echo $product->brand; ?></td>
+		<td> <?php echo $product->price; ?> </td>
+		<td> <?php echo $product->quantity; ?> </td>
+		<td> <a href="cart.php?id= <?php echo $product->id; ?> &action=add">Order Now</a> </td>
+	</tr>
+	<?php } ?>
+
+
+
+
+
+
+
+<?php 
+
+$sql = 'SELECT * FROM skincare ';
+$result = mysqli_query($con, $sql);
+ ?>
+
+ <table id="t01">
+ <tr>
+ 	<th>Id</th>
+ 	<th>Name</th>
+ 	<th>brand</th>
+ 	<th>Price</th>
+ 	<th>Quantity (in stock)</th>
+ 	<th>Buy</th>
+ </tr>
+ 	<?php while($product = mysqli_fetch_object($result)) { ?> 
+	<tr>
+		<td> <?php echo $product->id; ?> </td>
+		<td> <?php echo $product->name; ?> </td>
+		<td> <?php echo $product->brand; ?></td>
+		<td> <?php echo $product->price; ?> </td>
+		<td> <?php echo $product->quantity; ?> </td>
+		<td> <a href="cart.php?id= <?php echo $product->id; ?> &action=add">Order Now</a> </td>
+	</tr>
+	<?php } ?>
+	
+	
+	
+	
+	
+	
+ </table>
+</body>
+
+ </html>
