@@ -4,7 +4,7 @@
 </head>
 <body>
 	<div id = "wrapper">
-	
+	<h2 style="color: magenta">K.E.T. Sparkle Make-Up Store</h2>
 <form>
 	search for: 
     <input type="text" name="itemName"/>
@@ -116,6 +116,8 @@ $result = mysqli_query($con, $sql);
 	
 	
  </table>
+ <h5>Team Project Document: <a href="https://docs.google.com/a/csumb.edu/document/d/1ln7ktQkBeje3rY5gmujfZhuwDehoxkquepxcOcVr-o4/edit?usp=sharing">Link</a></h5>
+ <h5>Disclaimer: This is not a real website, don't input any personal financial information</h5>
  </div>
 </body>
 
