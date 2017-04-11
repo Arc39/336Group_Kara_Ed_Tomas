@@ -3,11 +3,16 @@
 	<link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
+	<div id = "wrapper">
 	
 <form>
 	search for: 
     <input type="text" name="itemName"/>
     <input type="submit" value="Search" />
+    
+    <input type="checkbox" name="status" id="status"/>
+    <label for="status"> Check Availability </label>
+    
 </form>
 
 <?php 
@@ -104,6 +109,7 @@ $result = mysqli_query($con, $sql);
 	
 	
  </table>
+ </div>
 </body>
 
  </html>

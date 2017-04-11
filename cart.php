@@ -10,7 +10,7 @@ require 'connect.php';
 require 'item.php';
 
 if(isset($_GET['id']) && !isset($_POST['update']))  { 
-	$sql = "SELECT * FROM eyemakeup";
+	$sql = "SELECT * FROM eyemakeup ";
 	$result = mysqli_query($con, $sql);
 	$product = mysqli_fetch_object($result); 
 	$item = new Item();
