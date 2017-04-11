@@ -8,11 +8,18 @@
 <form>
 	search for: 
     <input type="text" name="itemName"/>
-    <input type="submit" value="Search" />
-    
+    <select>
+    	<option value="face">Face</option>
+    	<option value="eye">Eye</option>
+    	<option value="skin">Skin</option>
+    </select>
     <input type="checkbox" name="status" id="status"/>
     <label for="status"> Check Availability </label>
-    
+    <br>
+    <label for="price">Sort by:</label>
+    <input type="radio" name="price" value="asc" checked> Ascending
+  	<input type="radio" name="price" value="desc"> Descending
+  	<input type="submit" value="Search" />
 </form>
 
 <?php 
