@@ -10,7 +10,9 @@ require 'connect.php';
 require 'item.php';
 
 if(isset($_GET['id']) && !isset($_POST['update']))  { 
-	$sql = "SELECT * FROM eyemakeup ";
+	$sql = "select * from eyemakeup union select * from facemakeup union
+            select * from skincare where name = '" .$_GET['name'] . "'" ;
+	
 	$result = mysqli_query($con, $sql);
 	$product = mysqli_fetch_object($result); 
 	$item = new Item();
@@ -52,6 +54,7 @@ if(isset($_POST['update'])) {
   }
   $_SESSION['cart'] = $cart;
 }
+
 ?>
 <h2> Items in your cart: </h2> 
 <form method="POST">
