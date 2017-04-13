@@ -38,7 +38,7 @@ body{
   border-radius: 20px;
   border: 1px solid black;
 }
-form{
+#indexForm{
     background-color: magenta;
     width: 60%;
     margin: 0 auto;

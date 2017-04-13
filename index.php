@@ -6,42 +6,66 @@ $con = getDBConnection("makeup");
 function getItems(){
     global $con;
     $namedParameters = array();
-
-
-    // if(isset($_GET['category'])){
-        //put category as table name in sql, but just gives me error
-    // }
-    $sql = "select * from eyemakeup union select * from facemakeup union select * from skincare where 1";
-    
-    if(isset($_GET['itemName'])){
-        $sql .=" and name LIKE :itemName";
-        $namedParameters[':itemName'] = '%'.$_GET['itemName'].'%';
-    }
+    $results = null;
+    if(isset($_GET['submit'])){
+        
+        $sql = "select * from eyemakeup union select * from facemakeup union select * from skincare where 1";
+        if(isset($_GET['category'])){
+            $value = $_GET['category'];
+            if($value == "eyemakeup"){
+                $sql = "select * from eyemakeup ";
+            }elseif($value == "facemakeup"){
+                $sql = "select * from facemakeup ";
+            }elseif($value == "skincare"){
+                $sql = "select * from skincare ";
+            }
+        }
+        if(isset($_GET['itemName']) && ($_GET['itemName'] != "")){
+            $sql .=" and name LIKE :itemName";
+            $namedParameters[':itemName'] = '%'.$_GET['itemName'].'%';
+        }
         
         //Show only items that are available
         if (isset($_GET['status']) ) { 
-        
+
             $sql .= " AND quantity > 0 ";
         }
         //order items by price asc or desc
-        if(isset($_GET['price']))
-            {
-                if($_GET['price'] == "asc")
-                {
-                    $sql .=  "order by price ";
-                }
-                else
-                {
-                    $sql .= "order by price desc ";
-                }
+        if(isset($_GET['price'])){
+            if($_GET['price'] == "asc"){
+                $sql .=  "order by price";
             }
+            else{
+                $sql .= "order by price desc ";
+            }
+        }
 
-    $stmt = $con -> prepare ($sql);
-    $stmt -> execute($namedParameters);
-    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    return $result;
-
+        $stmt = $con -> prepare ($sql);
+        $stmt -> execute($namedParameters);
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        echo "<table id=\"t01\">
+            <tr>
+ 	        <th>Id</th>
+ 	        <th>Name</th>
+ 	      <th>brand</th>
+         	<th>Price</th>
+         	<th>Quantity (in stock)</th>
+         	<th></th>
+         </tr>";
+        foreach($results as $result) {
+            echo "<tr>";
+            echo "<td>".$result['id']."</td>";
+            echo "<td><a href=\"itemInfo.php?name=".$result['name']. "&id=" .
+                        $result['id']."\">" . $result['name'] ."</a></td>";
+            echo "<td>".$result['brand']."</td>";
+            echo "<td>".$result['price']."</td>";
+            echo "<td>".$result['quantity']."</td>";
+            echo "<td><a href=\"cart.php?name=".$result['name']. "&id=" .
+                    $result['id']."\">Add to cart</a></td>";
+            echo "</tr>";
+        }
+        echo "</table>";
+    }
 }
 
 ?>
@@ -54,7 +78,7 @@ function getItems(){
 <body>
 	<div id = "wrapper">
 	<h2 style="color: magenta">K.E.T. Sparkle Make-Up Store</h2>
-<form>
+<form id="indexForm">
 	<br /> <br />
 	Item: 
     <input type="text" name="itemName"/>
@@ -72,7 +96,7 @@ function getItems(){
     <label for="price">Sort by:</label>
     <input type="radio" name="price" value="asc"> Ascending
   	<input type="radio" name="price" value="desc"> Descending
-  	<input type="submit" value="Search" />
+  	<input type="submit" value="Search" name="submit" />
 
 </form>
 
@@ -81,36 +105,10 @@ function getItems(){
 <br />
 <center>
 
-
- <table id="t01">
- <tr>
- 	<th>Id</th>
- 	<th>Name</th>
- 	<th>brand</th>
- 	<th>Price</th>
- 	<th>Quantity (in stock)</th>
- 	<!--<th>Buy</th>-->
- </tr>
  	<?php 
- 	$results = getItems();
-    foreach($results as $result) {
-                echo "<tr>";
-                echo "<td>".$result['id']."</td>";
-                echo "<td><a href=\"itemInfo.php?name=".$result['name']. "&id=" .
-                        $result['id']."\">" . $result['name'] ."</a></td>";
-                echo "<td>".$result['brand']."</td>";
-                echo "<td>".$result['price']."</td>";
-                echo "<td>".$result['quantity']."</td>";
-                // echo "<td>"."<input type='checkbox' name='buy' id='buy'/></td>";
-                echo "</tr>";
-            }
-            
+ 	  getItems();
     ?>
 	
-
-	
- </table>
-
  </center>
 =======
  <h5>Team Project Document: <a href="https://docs.google.com/a/csumb.edu/document/d/1ln7ktQkBeje3rY5gmujfZhuwDehoxkquepxcOcVr-o4/edit?usp=sharing">Link</a></h5>

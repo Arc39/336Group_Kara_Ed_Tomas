@@ -20,7 +20,13 @@
     </head>
     <body>
         <div id="wrapper">
-            <?= print_r($result) ?>
+            <a href="index.php" style="align: left">&lt;-Go Back</a>
+            <?php 
+                echo "<h3>". $result['name'] . "</h3>";
+                echo "<h3> By: " . $result['brand'] . "</h3>";
+                echo "<h3>$". $result['price'] . "</h3>";
+                echo "<h3> Quantity: ". $result['quantity'] . "</h3>";
+            ?>
         </div>
     </body>
 </html>
