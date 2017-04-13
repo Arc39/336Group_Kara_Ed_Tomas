@@ -32,10 +32,10 @@ function getItems(){
         //order items by price asc or desc
         if(isset($_GET['price'])){
             if($_GET['price'] == "asc"){
-                $sql .=  "order by price ";
+                $sql .=  " order by price";
             }
             else{
-                $sql .= "order by price desc ";
+                $sql .= " order by price desc";
             }
         }
 
