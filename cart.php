@@ -2,6 +2,7 @@
 <head>
 	<link rel="stylesheet" href="assets/styles.css">
 </head>
+<div id="wrapper">
 <body>
 <?php 
 // Start the session
@@ -56,9 +57,9 @@ if(isset($_POST['update'])) {
 }
 
 ?>
-<h2> Items in your cart: </h2> 
+<h2 style="color: magenta"> Items in your cart: </h2> 
 <form method="POST">
-<table id="t01">
+<table id="t01" style="margin: 0 auto;">
 <tr>
 	<th>Option</th>
 	<th>Id</th>
@@ -103,4 +104,5 @@ if(isset($_GET["id"]) || isset($_GET["index"])){
 } 
 ?>
 </body>
+</div>
  </html>
