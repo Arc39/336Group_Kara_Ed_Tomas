@@ -9,7 +9,7 @@ function getItems(){
     $results = null;
     if(isset($_GET['submit'])){
         
-        $sql = "select * from eyemakeup union select * from facemakeup union select * from skincare where 1";
+        $sql = "select * from eyemakeup union select * from facemakeup union select * from skincare ";
         if(isset($_GET['category'])){
             $value = $_GET['category'];
             if($value == "eyemakeup"){
@@ -27,13 +27,12 @@ function getItems(){
         
         //Show only items that are available
         if (isset($_GET['status']) ) { 
-
             $sql .= " AND quantity > 0 ";
         }
         //order items by price asc or desc
         if(isset($_GET['price'])){
             if($_GET['price'] == "asc"){
-                $sql .=  "order by price";
+                $sql .=  " order by price ";
             }
             else{
                 $sql .= "order by price desc ";
@@ -69,8 +68,6 @@ function getItems(){
 }
 
 ?>
-
-
 <!DOCTYPE html>
 <head>
 	<link rel="stylesheet" href="assets/styles.css">
