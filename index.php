@@ -1,3 +1,52 @@
+<?php 
+include 'connect.php';
+
+$con = getDBConnection("makeup");
+
+function getItems(){
+    global $con;
+    $namedParameters = array();
+
+
+    // if(isset($_GET['category'])){
+        //put category as table name in sql, but just gives me error
+    // }
+    $sql = "select * from eyemakeup union select * from facemakeup union select * from skincare where 1";
+    
+    if(isset($_GET['itemName'])){
+        $sql .=" and name LIKE :itemName";
+        $namedParameters[':itemName'] = '%'.$_GET['itemName'].'%';
+    }
+        
+        //Show only items that are available
+        if (isset($_GET['status']) ) { 
+        
+            $sql .= " AND quantity > 0 ";
+        }
+        //order items by price asc or desc
+        if(isset($_GET['price']))
+            {
+                if($_GET['price'] == "asc")
+                {
+                    $sql .=  "order by price ";
+                }
+                else
+                {
+                    $sql .= "order by price desc ";
+                }
+            }
+
+    $stmt = $con -> prepare ($sql);
+    $stmt -> execute($namedParameters);
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    return $result;
+
+}
+
+?>
+
+
 <!DOCTYPE html>
 <head>
 	<link rel="stylesheet" href="assets/styles.css">
@@ -6,18 +55,20 @@
 	<div id = "wrapper">
 	<h2 style="color: magenta">K.E.T. Sparkle Make-Up Store</h2>
 <form>
-	<br>
-	search for: 
+	<br /> <br />
+	Item: 
     <input type="text" name="itemName"/>
-    <select>
-    	<option value="face">Face</option>
-    	<option value="eye">Eye</option>
-    	<option value="skin">Skin</option>
-    </select>
+    
+    <!--I was thinking we can use category to pick the table, but I just get errors when I try to use a variable-->
+    <!--or named parameter for table in sql statement-->
+    Category: <input type="radio" name="category" value="eyemakeup" ><label for="eyemakeup"> Eye </label>
+            <input type="radio" name="category" value="facemakeup" > <label for="facemakeup">  Face </label>
+            <input type="radio" name="category" value="skincare" > <label for="skincare">  Skin </label>
+    <br />
     <input type="checkbox" name="status" id="status"/>
-    <label for="status"> Check Availability </label>
+    <label for="status"> Show Available Items Only </label>
 
-    <br>
+    <br />
     <label for="price">Sort by:</label>
     <input type="radio" name="price" value="asc"> Ascending
   	<input type="radio" name="price" value="desc"> Descending
@@ -25,45 +76,11 @@
 
 </form>
 
-<br>
-<br>
-<br>
+<br />
+<br />
+<br />
 <center>
-<?php 
-require 'connect.php';
-$sql = 'select * from eyemakeup union select * from facemakeup union select * from skincare ';
-$result = mysqli_query($con, $sql);
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
-
-// this code here does not want to filter out the quantities
-
-if(isset($_GET['status']))
-{
-    $sql .= ' where quantity > 0 ';
-}
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-if(isset($_GET['price']))
-{
-    if($_GET['price'] == "asc")
-    {
-        $sql .=  "order by price ";
-    }
-    else
-    {
-        $sql .= "order by price desc ";
-    }
-    
-    
-}
-
-
-$result = mysqli_query($con, $sql);
-
-
- ?>
 
  <table id="t01">
  <tr>
@@ -72,18 +89,22 @@ $result = mysqli_query($con, $sql);
  	<th>brand</th>
  	<th>Price</th>
  	<th>Quantity (in stock)</th>
- 	<th>Buy</th>
+ 	<!--<th>Buy</th>-->
  </tr>
- 	<?php while($product = mysqli_fetch_object($result)) { ?> 
-	<tr>
-		<td> <?php echo $product->id; ?> </td>
-		<td> <?php echo $product->name; ?> </td>
-		<td> <?php echo $product->brand; ?></td>
-		<td> <?php echo $product->price; ?> </td>
-		<td> <?php echo $product->quantity; ?> </td>
-		<td> <a href="cart.php?id= <?php echo $product->id; ?> &action=add">Order Now</a> </td>
-	</tr>
-	<?php } ?>
+ 	<?php 
+ 	$results = getItems();
+    foreach($results as $result) {
+                echo "<tr>";
+                echo "<td>".$result['id']."</td>";
+                echo "<td>".$result['name']."</td>";
+                echo "<td>".$result['brand']."</td>";
+                echo "<td>".$result['price']."</td>";
+                echo "<td>".$result['quantity']."</td>";
+                // echo "<td>"."<input type='checkbox' name='buy' id='buy'/></td>";
+                echo "</tr>";
+            }
+            
+    ?>
 	
 
 	
