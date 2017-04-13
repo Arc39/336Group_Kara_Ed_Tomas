@@ -96,7 +96,8 @@ function getItems(){
     foreach($results as $result) {
                 echo "<tr>";
                 echo "<td>".$result['id']."</td>";
-                echo "<td>".$result['name']."</td>";
+                echo "<td><a href=\"itemInfo.php?name=".$result['name']. "&id=" .
+                        $result['id']."\">" . $result['name'] ."</a></td>";
                 echo "<td>".$result['brand']."</td>";
                 echo "<td>".$result['price']."</td>";
                 echo "<td>".$result['quantity']."</td>";

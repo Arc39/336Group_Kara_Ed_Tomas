@@ -38,3 +38,11 @@ body{
   border-radius: 20px;
   border: 1px solid black;
 }
+form{
+    background-color: magenta;
+    width: 60%;
+    margin: 0 auto;
+    padding-bottom: 30px;
+    border-radius: 20px;
+    border: 1px solid black;
+}
