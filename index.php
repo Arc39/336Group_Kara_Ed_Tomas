@@ -13,26 +13,26 @@ function getItems(){
         if(isset($_GET['category'])){
             $value = $_GET['category'];
             if($value == "eyemakeup"){
-                $sql = "select * from eyemakeup ";
+                $sql = "select * from eyemakeup where 1 ";
             }elseif($value == "facemakeup"){
-                $sql = "select * from facemakeup ";
+                $sql = "select * from facemakeup where 1 ";
             }elseif($value == "skincare"){
-                $sql = "select * from skincare ";
+                $sql = "select * from skincare where 1 ";
             }
         }
         if(isset($_GET['itemName']) && ($_GET['itemName'] != "")){
-            $sql .=" and name LIKE :itemName";
+            $sql .="and name LIKE :itemName";
             $namedParameters[':itemName'] = '%'.$_GET['itemName'].'%';
         }
         
         //Show only items that are available
         if (isset($_GET['status']) ) { 
-            $sql .= " AND quantity > 0 ";
+            $sql .= "AND quantity > 0 ";
         }
         //order items by price asc or desc
         if(isset($_GET['price'])){
             if($_GET['price'] == "asc"){
-                $sql .=  " order by price ";
+                $sql .=  "order by price ";
             }
             else{
                 $sql .= "order by price desc ";
