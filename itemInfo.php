@@ -26,6 +26,8 @@
                 echo "<h3> By: " . $result['brand'] . "</h3>";
                 echo "<h3>$". $result['price'] . "</h3>";
                 echo "<h3> Quantity: ". $result['quantity'] . "</h3>";
+                echo "<a href=\"cart.php?name=".$result['name']. "&id=" .
+                    $result['id']."\">Add to cart</a></td>";
             ?>
         </div>
     </body>
