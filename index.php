@@ -27,7 +27,7 @@ function getItems(){
         
         //Show only items that are available
         if (isset($_GET['status']) ) { 
-            $sql .= "AND quantity > 0 ";
+            $sql .= " AND quantity > 0 ";
         }
         //order items by price asc or desc
         if(isset($_GET['price'])){
